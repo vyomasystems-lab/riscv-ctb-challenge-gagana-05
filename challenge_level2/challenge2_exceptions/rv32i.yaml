@@ -178,8 +178,8 @@ d-cache:
 exception-generation:
   ecause00: 0
   ecause01: 0
-  ecause02: 0
-  ecause03: 0
+  ecause02: 1 #illegal instruction
+  ecause03: 10 #Breakpoint
   ecause04: 0
   ecause05: 0
   ecause06: 0

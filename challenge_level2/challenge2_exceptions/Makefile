@@ -1,9 +1,11 @@
+# Defines
+trap_illegal_instruction=800000e0
 
 all: gen compile disass spike check
 
 gen: clean
 	@echo '[UpTickPro] Test Generation ------'
-	aapg setup
+	aapg setup 
 	aapg gen --config_file $(PWD)/rv32i.yaml --asm_name test --output_dir $(PWD) --arch rv32
 
 compile:
@@ -22,9 +24,9 @@ spike: compile
 check: test_spike.dump
 	@echo '[UpTickPro] Number of Exceptions'
 	spike -l --isa=rv64im test.elf 2> spike.log
-#	grep trap_illegal_instruction spike.log > exceptions.log
-#	cat exceptions.log
-#	wc -l exceptions.log
+	grep $(trap_illegal_instruction) spike.log > exceptions.log
+	cat exceptions.log
+	wc -l exceptions.log
 
 clean:
 	@echo '[UpTickPro] Clean ------'
